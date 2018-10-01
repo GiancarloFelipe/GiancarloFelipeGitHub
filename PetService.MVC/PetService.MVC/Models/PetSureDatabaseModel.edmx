@@ -1,0 +1,222 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="PetSureDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="PetClaimService">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PetId" Type="int" Nullable="false" />
+          <Property Name="FileName" Type="nvarchar" MaxLength="100" />
+          <Property Name="FilePath" Type="text" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="UploadedDate" Type="datetime" />
+          <Property Name="SavedDate" Type="datetime" />
+          <Property Name="PetClaimedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="PetClaimServiceTemp">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PetId" Type="int" Nullable="false" />
+          <Property Name="FileName" Type="nvarchar" MaxLength="100" />
+          <Property Name="FilePath" Type="text" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="UploadedDate" Type="datetime" />
+          <Property Name="SavedDate" Type="datetime" />
+          <Property Name="PetClaimedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="PetList">
+          <Key>
+            <PropertyRef Name="PetId" />
+          </Key>
+          <Property Name="PetId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PetName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_PetClaimService_PetList">
+          <End Role="PetList" Type="Self.PetList" Multiplicity="1" />
+          <End Role="PetClaimService" Type="Self.PetClaimService" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PetList">
+              <PropertyRef Name="PetId" />
+            </Principal>
+            <Dependent Role="PetClaimService">
+              <PropertyRef Name="PetId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PetClaimServiceTemp_PetList">
+          <End Role="PetList" Type="Self.PetList" Multiplicity="1" />
+          <End Role="PetClaimServiceTemp" Type="Self.PetClaimServiceTemp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PetList">
+              <PropertyRef Name="PetId" />
+            </Principal>
+            <Dependent Role="PetClaimServiceTemp">
+              <PropertyRef Name="PetId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PetSureDatabaseModelStoreContainer">
+          <EntitySet Name="PetClaimService" EntityType="Self.PetClaimService" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PetClaimServiceTemp" EntityType="Self.PetClaimServiceTemp" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PetList" EntityType="Self.PetList" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_PetClaimService_PetList" Association="Self.FK_PetClaimService_PetList">
+            <End Role="PetList" EntitySet="PetList" />
+            <End Role="PetClaimService" EntitySet="PetClaimService" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PetClaimServiceTemp_PetList" Association="Self.FK_PetClaimServiceTemp_PetList">
+            <End Role="PetList" EntitySet="PetList" />
+            <End Role="PetClaimServiceTemp" EntitySet="PetClaimServiceTemp" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PetSureDatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="PetClaimService">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PetId" Type="Int32" Nullable="false" />
+          <Property Name="FileName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="FilePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UploadedDate" Type="DateTime" Precision="3" />
+          <Property Name="SavedDate" Type="DateTime" Precision="3" />
+          <Property Name="PetClaimedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="PetList" Relationship="Self.FK_PetClaimService_PetList" FromRole="PetClaimService" ToRole="PetList" />
+        </EntityType>
+        <EntityType Name="PetClaimServiceTemp">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PetId" Type="Int32" Nullable="false" />
+          <Property Name="FileName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="FilePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UploadedDate" Type="DateTime" Precision="3" />
+          <Property Name="SavedDate" Type="DateTime" Precision="3" />
+          <Property Name="PetClaimedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="PetList" Relationship="Self.FK_PetClaimServiceTemp_PetList" FromRole="PetClaimServiceTemp" ToRole="PetList" />
+        </EntityType>
+        <EntityType Name="PetList">
+          <Key>
+            <PropertyRef Name="PetId" />
+          </Key>
+          <Property Name="PetId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PetName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PetClaimServices" Relationship="Self.FK_PetClaimService_PetList" FromRole="PetList" ToRole="PetClaimService" />
+          <NavigationProperty Name="PetClaimServiceTemps" Relationship="Self.FK_PetClaimServiceTemp_PetList" FromRole="PetList" ToRole="PetClaimServiceTemp" />
+        </EntityType>
+        <Association Name="FK_PetClaimService_PetList">
+          <End Role="PetList" Type="Self.PetList" Multiplicity="1" />
+          <End Role="PetClaimService" Type="Self.PetClaimService" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PetList">
+              <PropertyRef Name="PetId" />
+            </Principal>
+            <Dependent Role="PetClaimService">
+              <PropertyRef Name="PetId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PetClaimServiceTemp_PetList">
+          <End Role="PetList" Type="Self.PetList" Multiplicity="1" />
+          <End Role="PetClaimServiceTemp" Type="Self.PetClaimServiceTemp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PetList">
+              <PropertyRef Name="PetId" />
+            </Principal>
+            <Dependent Role="PetClaimServiceTemp">
+              <PropertyRef Name="PetId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PetSureDatabaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="PetClaimServices" EntityType="Self.PetClaimService" />
+          <EntitySet Name="PetClaimServiceTemps" EntityType="Self.PetClaimServiceTemp" />
+          <EntitySet Name="PetLists" EntityType="Self.PetList" />
+          <AssociationSet Name="FK_PetClaimService_PetList" Association="Self.FK_PetClaimService_PetList">
+            <End Role="PetList" EntitySet="PetLists" />
+            <End Role="PetClaimService" EntitySet="PetClaimServices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PetClaimServiceTemp_PetList" Association="Self.FK_PetClaimServiceTemp_PetList">
+            <End Role="PetList" EntitySet="PetLists" />
+            <End Role="PetClaimServiceTemp" EntitySet="PetClaimServiceTemps" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PetSureDatabaseModelStoreContainer" CdmEntityContainer="PetSureDatabaseEntities">
+          <EntitySetMapping Name="PetClaimServices">
+            <EntityTypeMapping TypeName="PetSureDatabaseModel.PetClaimService">
+              <MappingFragment StoreEntitySet="PetClaimService">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="PetId" ColumnName="PetId" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="FilePath" ColumnName="FilePath" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="UploadedDate" ColumnName="UploadedDate" />
+                <ScalarProperty Name="SavedDate" ColumnName="SavedDate" />
+                <ScalarProperty Name="PetClaimedDate" ColumnName="PetClaimedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PetClaimServiceTemps">
+            <EntityTypeMapping TypeName="PetSureDatabaseModel.PetClaimServiceTemp">
+              <MappingFragment StoreEntitySet="PetClaimServiceTemp">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="PetId" ColumnName="PetId" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="FilePath" ColumnName="FilePath" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="UploadedDate" ColumnName="UploadedDate" />
+                <ScalarProperty Name="SavedDate" ColumnName="SavedDate" />
+                <ScalarProperty Name="PetClaimedDate" ColumnName="PetClaimedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PetLists">
+            <EntityTypeMapping TypeName="PetSureDatabaseModel.PetList">
+              <MappingFragment StoreEntitySet="PetList">
+                <ScalarProperty Name="PetId" ColumnName="PetId" />
+                <ScalarProperty Name="PetName" ColumnName="PetName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
