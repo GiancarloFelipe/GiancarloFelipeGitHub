@@ -1,6 +1,6 @@
 ﻿app.service("petService", function ($http) {
 
-    //get All Pets
+    // GET: All Pets
     this.getAllPets = function () {
         return $http.get("api/PetSure");
     };
