@@ -1,0 +1,47 @@
+﻿@using PetService.MVC
+
+<div class="jumbotron">
+</div>
+<div class="form-bordered" ng-controller="petCtrl">
+    <div class="panel">
+        <div class="panel-heading">
+            <div class="col-md-2">
+                <img class="img-responsive" src="~/Resources/Images/Png/PetSureLogo.png" alt="PetSure Logo" />
+            </div>
+        </div>
+        <div class="panel-body">
+            <div>
+                <div class="col-md-8">
+                    <h1>@ViewBag.Title</h1>                    
+                    <span class="text-line-height">{{PetNamesLabel}}</span>
+                    <select id="ddlPetList" name="users" ng-options="pet.PetName for pet in pets" ng-model="petselected" ng-change="selectedPetName()">
+                        <option value="">{{DefaultOption}}</option>
+                    </select>
+                    <div id="ShowPanel" ng-show="petselected.PetName">
+                        <span>{{SpanMessage1}}</span>
+                        <span contenteditable="true" ng-bind="petselected.PetName"></span>
+                        <span>{{SpanMessage2}}</span>
+                        @Html.FileUploadPanel("Home", "UploadedFile", new { @class = "dropzone" })
+                        <div class="form-group-button">
+                            <a class="btn btn-black" ng-click="submitClaim()">{{ButtonName1}}</a>
+                            <a class="text-success" ng-click="saveForLaterClaim()">{{ButtonName2}}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script type="text/javascript">
+        Dropzone.options.dropzoneForm = {
+            init: function () {
+                var myDropzone = this;
+                this.on("complete", function (data) {
+                    var res = JSON.parse(data.xhr.responseText);
+                    console.log(res.Message);
+                });
+            }
+        };
+    </script>
+}
